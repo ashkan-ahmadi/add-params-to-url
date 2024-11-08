@@ -12,21 +12,19 @@
   <main class="container mt-3">
 
     <h1>Add Query Parameters to URL</h1>
+    <p>Use the form below to easily add query parameters to the end of a URL.</p>
 
     <form id="form">
       <div id="inputContainer">
         <!-- Dynamic input fields will be added here -->
         <div class="form-group mb-3">
-          <label for="inputField">URL</label>
-          <input type="text" class="form-control" id="url" name="url" placeholder="e.g. https://www.example.com" value="">
+          <h2 aria-label="url">URL</h2>
+          <input type="text" class="form-control" id="url" name="url" placeholder="e.g. https://www.example.com" value="" autofocus>
           <div class="form-text">Your URL must start with <code>https://</code></div>
         </div>
       </div>
       <div class="form-group mb-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <label>Parameters</label>
-          <button type="button" class="btn btn-outline-primary btn-sm" id="add-parameter-button"><i class="bi bi-plus-circle-fill me-2" aria-hidden="true"></i>Add Parameter</button>
-        </div>
+        <h2>Parameters<button type="button" class="btn border-0 btn-sm ms-2 rounded-circle p-0" id="add-parameter-button" aria-label="Add Parameter"><i class="bi bi-plus-circle-fill text-primary fs-5" aria-hidden="true"></i></button></h2>
         <div id="repeatable-inputs">
           <datalist id="keys_list">
             <option value="adset">
@@ -57,10 +55,10 @@
       </div>
       
       <button type="submit" class="btn btn-primary mb-4" id="addInputBtn">Create link</button>
-      <div class="input-group">
+      <!-- <div class="input-group">
         <input type="text" id="result-input" class="form-control" readonly>
         <button type="button" id="copy-button" class="btn btn-primary" disabled>Copy</button>
-      </div>
+      </div> -->
     </form>
   </main>
   
