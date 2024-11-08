@@ -1,10 +1,12 @@
-import { $, addNewKeyValueToForm, getFormDataAsObject, addParamsToURL, copyToClipboard } from './_functions'
+import { $, addNewKeyValueToForm, getFormDataAsObject, addParamsToURL, showAddItemModal } from './_functions'
 
 export default function App() {
   const form = $('#form')
+
+  if (!form) {
+    return
+  }
   const addParameterButton = $('#add-parameter-button', form)
-  const resultInput = $('#result-input', form)
-  const copyButton = $('#copy-button', form)
 
   // Every key:input will have the name as key-# and value-#
   let inputCount = 0
@@ -35,19 +37,15 @@ export default function App() {
 
     const finalurl = addParamsToURL(url, params)
 
-    if (resultInput) {
-      resultInput.value = finalurl
+    if (!finalurl) {
+      return
     }
 
-    if (copyButton) {
-      copyButton.disabled = false
-    }
+    showAddItemModal(finalurl)
   })
 
   addParameterButton.addEventListener('click', () => {
     inputCount++
     addNewKeyValueToForm(inputCount)
   })
-
-  // copyButton.addEventListener('click', copyToClipboard)
 }
