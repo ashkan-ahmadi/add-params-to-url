@@ -4,7 +4,8 @@
   "description": "This is a simple vanilla JS app that allows you to easily add query parameters to a URL.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "webpack --mode development --watch",
+    "build:production": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/ashkan-ahmadi/add-params-to-url/issues"
   },
-  "homepage": "https://github.com/ashkan-ahmadi/add-params-to-url#readme"
+  "homepage": "https://github.com/ashkan-ahmadi/add-params-to-url#readme",
+  "devDependencies": {
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
+  }
 }
