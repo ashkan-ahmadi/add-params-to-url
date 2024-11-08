@@ -6,22 +6,12 @@ export function $$(target, selector = document) {
   return selector.querySelectorAll(target)
 }
 
-export function copyToClipboard() {
-  const value = resultInput.value
-
+export function copyToClipboard(value) {
   if (!value) {
     return
   }
 
-  copyTextToClipboard(
-    value,
-    () => {
-      alert('✅ Copied')
-    },
-    () => {
-      alert('There was an issue. Try again.')
-    }
-  )
+  copyTextToClipboard(value)
 }
 
 export function addNewKeyValueToForm(inputCount) {
@@ -91,24 +81,24 @@ export function getFormDataAsObject(form) {
   return Object.fromEntries(formData)
 }
 
-export function addParamsToURL(baseURL, params = {}, encode = false) {
+export function addParamsToURL(baseURL, params = {}) {
   /**
    * Adds params to the end of a URL and returns the complete URL with
    *
    * @param {string} baseURL - the URL you want the params to be added to
    * @param {object} [params={}] - an object with keys and values to be added to the URL as params
-   * @param {bool} [encode=false] - whether to return the final URL encoded or not (default not encoded)
    *
    * @return {string} complete URL
    */
 
   const url = new URL(baseURL)
+
   for (const key in params) {
     const value = params[key]
     url.searchParams.append(key, value)
   }
 
-  return encode ? encodeURIComponent(url.href) : url.href
+  return url.href
 }
 
 export function copyTextToClipboard(text, onSuccess = function () {}, onFail = function () {}) {
@@ -180,4 +170,46 @@ export function copyTextToClipboard__deprecated(text, onSuccess = function () {}
   }
 
   document.body.removeChild(textArea)
+}
+
+export function showAddItemModal(finalurl) {
+  let modalWrap = null
+
+  if (modalWrap !== null) {
+    modalWrap.remove()
+  }
+
+  modalWrap = document.createElement('div')
+
+  modalWrap.innerHTML = `
+    <div class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-light">
+            <h5 class="modal-title">Copy URL</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Your URL is created. You can copy it now.</p>
+            <div class="input-group">
+              <input type="text" id="result-input" class="form-control" value="${finalurl}" readonly>
+              <button type="button" id="copy-button" class="btn btn-primary"><i class="bi bi-clipboard-fill me-2" aria-hidden="true"></i>Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `
+
+  const copyButton = modalWrap.querySelector('#copy-button')
+
+  copyButton.addEventListener('click', e => {
+    copyToClipboard(finalurl)
+    copyButton.textContent = '✅ Copied'
+  })
+
+  document.body.append(modalWrap)
+
+  const modal = new bootstrap.Modal(modalWrap.querySelector('.modal'))
+  modal.show()
 }
